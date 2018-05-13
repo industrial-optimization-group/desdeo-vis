@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyBuilder
+target/
+
+# IPython Notebook
+.ipynb_checkpoints
+
+# NPM
+# ----
+
+**/node_modules/
+/desdeo_vis/nbextension/static/index.*
+/desdeo_vis/nbextension/static/lib
+/desdeo_vis/labextension/*.tgz
+/desdeo_vis.egg-info/
+
+# Packed lab extensions
+labextension
