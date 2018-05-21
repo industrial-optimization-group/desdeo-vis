@@ -1,11 +1,10 @@
 # desdeo-vis
 
 Visualisations and Jupyter Notebook enabled preference selection widgets for
-the [https://github.com/industrial-optimization-group/pyDESDEO](DESDEO
-interactive multiobjective optimization library).
+the [DESDEO interactive multiobjective optimization library](https://github.com/industrial-optimization-group/pyDESDEO).
 
 Currently features:
- * Parallel coordinate plots based on [https://vega.github.io/](Vega v3).
+ * Parallel coordinate plots based on [Vega v3](https://vega.github.io/).
  * Preference selection for NIMBUS (first stage only).
 
 ## Installation
