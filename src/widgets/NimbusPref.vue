@@ -1,23 +1,28 @@
 <template>
-  <div>
-    <div :class="$style['inputs']">
-      <PrefInput
-	:style="{
-	  left: confs[idx].x + 'px',
-	}"
-	:conf="confs[idx]"
-	:pref.sync="pref.pref"
-	:key="idx"
-	v-for="(pref, idx) of preferences" />
+  <div :class="$style['pref-container']">
+    <div>
+      <div :class="$style['inputs']">
+	<PrefInput
+	  :style="{
+	    left: confs[idx].x + 'px',
+	  }"
+	  :conf="confs[idx]"
+	  :pref.sync="pref.pref"
+	  :key="idx"
+	  v-for="(pref, idx) of preferences" />
+      </div>
+      <div :class="$style['vega-overlay']">
+	<div ref="vega"></div>
+	<SliderOverlay
+	  ref="sliders"
+	  :conf="confs[idx]"
+	  :pref.sync="pref.pref"
+	  :key="idx"
+	  v-for="(pref, idx) in preferences" />
+      </div>
     </div>
-    <div :class="$style['vega-overlay']">
-      <div ref="vega"></div>
-      <SliderOverlay
-	ref="sliders"
-	:conf="confs[idx]"
-	:pref.sync="pref.pref"
-	:key="idx"
-	v-for="(pref, idx) in preferences" />
+    <div v-if="problem" class="alert alert-warning">
+      Current preference is invalid because {{ problem }}.
     </div>
   </div>
 </template>
@@ -80,6 +85,32 @@ export default class NimbusPref extends Vue {
 
     //this.$watch('sliderValues', this.valuesChange);
   }
+
+  get problem(): string | null {
+    let hasImprove = false;
+    let hasDegrade = false;
+    for (let pref of this.preferences) {
+      if (['<', '<='].includes(pref.pref['kind'])) {
+	hasImprove = true;
+      } else if (['>', '>='].includes(pref.pref['kind'])) {
+	hasDegrade = true;
+      }
+    }
+    if (!hasImprove && !hasDegrade) {
+      return "preference must improve and degrade some criteria";
+    } else if (!hasImprove) {
+      return "preference must improve some criteria";
+    } else if (!hasDegrade) {
+      return "preference must degrade some criteria";
+    }
+    return null;
+  }
+
+  get prefs(): DimPref[] {
+    return this.preferences.map((pref) => {
+      return pref.pref;
+    });
+  }
 }
 </script>
 
@@ -90,8 +121,15 @@ export default class NimbusPref extends Vue {
   > * {
     position: absolute;
     transform: translateX(-50%);
+    white-space: nowrap;
   }
 }
+
+.pref-container {
+  display: flex;
+  align-items: center;
+}
+
 .vega-overlay {
   position: relative;
 }

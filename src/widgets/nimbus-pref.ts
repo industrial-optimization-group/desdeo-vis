@@ -57,21 +57,23 @@ class NimbusPrefView extends VegaView {
       }
     }).$mount();
     this.component.$watch(
-      'preferences',
-      (newPrefs, oldPrefs) =>
-        this.onPrefsChange(newPrefs, oldPrefs),
+      function() {
+        return [this['prefs'], this['problem']];
+      },
+      (newPrefProb, oldPrefProb) =>
+        this.onPrefsChange(newPrefProb, oldPrefProb),
       {
-        deep: true
+        deep: true,
+        immediate: true,
       }
     );
     this.vegaEl.style.position = 'relative';
     this.el.appendChild(this.component.$el);
   }
 
-  onPrefsChange(newPrefs, _oldPrefs) {
-    this.model.set('prefs', newPrefs.map((pref) => {
-      return pref.pref;
-    }));
+  onPrefsChange(newPrefProb, oldPrefProb) {
+    this.model.set('prefs', newPrefProb[0]);
+    this.model.set('prob', newPrefProb[1]);
     this.touch();
   }
 

@@ -3,9 +3,14 @@
 
 from ipywidgets import DOMWidget
 from traitlets import Unicode, Dict, List
+from desdeo.utils.exceptions import DESDEOException
 from desdeo_vis._version import EXTENSION_SPEC_VERSION
 
 module_name = "desdeo_vis"
+
+
+class InvalidNimbusPreferencesException(DESDEOException):
+    pass
 
 
 class VegaWidget(DOMWidget):
@@ -24,6 +29,7 @@ class NimbusPrefWidget(VegaWidget):
     _view_name = Unicode('NimbusPrefView').tag(sync=True)
 
     prefs = List(Dict()).tag(sync=True)
+    prob = Unicode(allow_none=True).tag(sync=True)
 
     def __init__(self, results, problem, **kwargs):
         from desdeo_vis.plot.parallel import vega3_parplot_spec
@@ -34,6 +40,9 @@ class NimbusPrefWidget(VegaWidget):
 
     def nimbus_clf(self, meth):
         from desdeo.preference import NIMBUSClassification
+        if self.prob is not None:
+            raise InvalidNimbusPreferencesException(
+                "Preference is invalid: " + self.prob)
         return NIMBUSClassification(
             meth, [
                 (
