@@ -147,7 +147,7 @@ def ticks(vmin, vmax):
     return locator.tick_values(vmin, vmax)
 
 
-def vega3_parplot(
+def vega3_parplot_df_spec(
         heading_df,
         values_df,
         custom_axis_values=True,
@@ -294,8 +294,13 @@ def vega3_parplot(
     return json
 
 
-def parplot_results_vega3(results, problem, *args, **kwargs):
-    return vega3_parplot(*(prepare_dfs(results, problem) + args), **kwargs)
+def vega3_parplot_spec(results, problem, *args, **kwargs):
+    return vega3_parplot_df_spec(*(prepare_dfs(results, problem) + args), **kwargs)
+
+
+def vega3_parplot(results, problem):
+    import altair.vega.v3 as vg
+    return vg.vega(vega3_parplot_spec(results, problem), validate=True)
 
 
 def prepare_dfs(results, problem):

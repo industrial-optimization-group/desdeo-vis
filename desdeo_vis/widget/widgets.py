@@ -26,10 +26,9 @@ class NimbusPrefWidget(VegaWidget):
     prefs = List(Dict()).tag(sync=True)
 
     def __init__(self, results, problem, **kwargs):
-        from desdeo_vis.plot.parallel import prepare_dfs, vega3_parplot
-        heading_df, values_df = prepare_dfs(results, problem)
-        spec = vega3_parplot(
-            heading_df, values_df,
+        from desdeo_vis.plot.parallel import vega3_parplot_spec
+        spec = vega3_parplot_spec(
+            results, problem,
             dim_tooltips=True, dim_symbols=True)
         super().__init__(spec=spec, **kwargs)
 
