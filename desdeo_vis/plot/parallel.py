@@ -148,7 +148,8 @@ def ticks(vmin, vmax):
 
 
 def vega3_parplot(
-        df,
+        heading_df,
+        values_df,
         custom_axis_values=True,
         dim_labels=True,
         dim_tooltips=False,
@@ -239,8 +240,6 @@ def vega3_parplot(
             extra_marks[-1]['encode']['enter']["tooltip"] = full_text()
         return extra_marks
 
-    main_values = df[['name', 'value']].set_index('name').T
-
     json = {
         "$schema": "https://vega.github.io/schema/vega/v3.json",
         "width": 400,
@@ -258,11 +257,11 @@ def vega3_parplot(
         "data": [
             {
                 "name": "main",
-                "values": to_values(main_values)['values']
+                "values": to_values(values_df)['values']
             },
             {
                 "name": "fields",
-                "values": list(df.name)
+                "values": list(heading_df.name)
             }
         ],
         "scales": [
@@ -277,11 +276,11 @@ def vega3_parplot(
             }
         ] + [
             scale_of_row(row)
-            for idx, row in df.iterrows()
+            for idx, row in heading_df.iterrows()
         ],
         "axes": [
             axis_of_row(row)
-            for idx, row in df.iterrows()
+            for idx, row in heading_df.iterrows()
         ],
         "marks": [
             {
@@ -295,14 +294,20 @@ def vega3_parplot(
     return json
 
 
-def parplot_results_vega3(results, problem):
-    return vega3_parplot(prepare_df(results, problem))
+def parplot_results_vega3(results, problem, *args, **kwargs):
+    return vega3_parplot(*(prepare_dfs(results, problem) + args), **kwargs)
 
 
-def prepare_df(results, problem):
+def prepare_dfs(results, problem):
     import pandas as pd
-    return pd.DataFrame({
-        'name': problem.objectives,
-        'value': results[0],
-        'ideal': problem.ideal,
-        'nadir': problem.nadir})
+    return (
+        pd.DataFrame({
+            'name': problem.objectives,
+            'ideal': problem.ideal,
+            'nadir': problem.nadir
+        }),
+        pd.DataFrame.from_records(
+            results,
+            columns=problem.objectives,
+        ),
+    )

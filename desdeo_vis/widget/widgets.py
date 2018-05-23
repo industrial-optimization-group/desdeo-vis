@@ -26,9 +26,11 @@ class NimbusPrefWidget(VegaWidget):
     prefs = List(Dict()).tag(sync=True)
 
     def __init__(self, results, problem, **kwargs):
-        from desdeo_vis.plot.parallel import prepare_df, vega3_parplot
-        df = prepare_df(results, problem)
-        spec = vega3_parplot(df, dim_tooltips=True, dim_symbols=True)
+        from desdeo_vis.plot.parallel import prepare_dfs, vega3_parplot
+        heading_df, values_df = prepare_dfs(results, problem)
+        spec = vega3_parplot(
+            heading_df, values_df,
+            dim_tooltips=True, dim_symbols=True)
         super().__init__(spec=spec, **kwargs)
 
     def nimbus_clf(self, meth):
