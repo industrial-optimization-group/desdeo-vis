@@ -2,7 +2,7 @@
 # coding: utf-8
 
 from ipywidgets import DOMWidget
-from traitlets import Unicode, Dict
+from traitlets import Unicode, Dict, List
 from desdeo_vis._version import EXTENSION_SPEC_VERSION
 
 module_name = "desdeo_vis"
@@ -23,8 +23,22 @@ class NimbusPrefWidget(VegaWidget):
     _model_name = Unicode('NimbusPrefModel').tag(sync=True)
     _view_name = Unicode('NimbusPrefView').tag(sync=True)
 
+    prefs = List(Dict()).tag(sync=True)
+
     def __init__(self, results, problem, **kwargs):
         from desdeo_vis.plot.parallel import prepare_df, vega3_parplot
         df = prepare_df(results, problem)
         spec = vega3_parplot(df, dim_tooltips=True, dim_symbols=True)
         super().__init__(spec=spec, **kwargs)
+
+    def nimbus_clf(self, meth):
+        from desdeo.preference import NIMBUSClassification
+        return NIMBUSClassification(
+            meth, [
+                (
+                    pref['kind'],
+                    float(pref['val']) if 'val' in pref else 0.0
+                )
+                for pref in self.prefs
+            ]
+        )

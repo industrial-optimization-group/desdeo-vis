@@ -56,8 +56,23 @@ class NimbusPrefView extends VegaView {
         vegaEl: this.vegaEl
       }
     }).$mount();
+    this.component.$watch(
+      'preferences',
+      (newPrefs, oldPrefs) =>
+        this.onPrefsChange(newPrefs, oldPrefs),
+      {
+        deep: true
+      }
+    );
     this.vegaEl.style.position = 'relative';
     this.el.appendChild(this.component.$el);
+  }
+
+  onPrefsChange(newPrefs, _oldPrefs) {
+    this.model.set('prefs', newPrefs.map((pref) => {
+      return pref.pref;
+    }));
+    this.touch();
   }
 
   get vegaEl() {
