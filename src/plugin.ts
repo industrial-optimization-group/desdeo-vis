@@ -18,6 +18,10 @@ import {
 } from './widgets/vega';
 
 import {
+  NimbusPrefModel, NimbusPrefView
+} from './widgets/nimbus-pref';
+
+import {
   EXTENSION_SPEC_VERSION
 } from './version';
 
@@ -45,8 +49,10 @@ function activateWidgetExtension(app: Application<Widget>, registry: IJupyterWid
     name: 'desdeo-vis',
     version: EXTENSION_SPEC_VERSION,
     exports: {
-      VegaModel: VegaModel,
-      VegaView: VegaView
+      VegaModel,
+      VegaView,
+      NimbusPrefModel,
+      NimbusPrefView
     }
   });
 }

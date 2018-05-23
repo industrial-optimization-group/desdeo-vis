@@ -9,7 +9,10 @@ import NimbusPref from './NimbusPref.vue';
 import { SliderConf } from './utils';
 
 export
-class NimbusPrefModel extends VegaModel {}
+class NimbusPrefModel extends VegaModel {
+  static model_name = 'NimbusPrefModel';
+  static view_name = 'NimbusPrefView';
+}
 
 export
 class NimbusPrefView extends VegaView {
