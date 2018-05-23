@@ -27,10 +27,10 @@ class VegaModel extends DOMWidgetModel {
     }
 
   static model_name = 'VegaModel';
-  static model_module = 'jupyter-widget-example';
+  static model_module = 'desdeo-vis';
   static model_module_version = EXTENSION_SPEC_VERSION;
   static view_name = 'VegaView';  // Set to null if no view
-  static view_module = 'jupyter-widget-example';   // Set to null if no view
+  static view_module = 'desdeo-vis';   // Set to null if no view
   static view_module_version = EXTENSION_SPEC_VERSION;
 }
 

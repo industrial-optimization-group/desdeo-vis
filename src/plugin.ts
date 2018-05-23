@@ -42,7 +42,7 @@ export default examplePlugin;
  */
 function activateWidgetExtension(app: Application<Widget>, registry: IJupyterWidgetRegistry): void {
   registry.registerWidget({
-    name: 'jupyter-widget-example',
+    name: 'desdeo-vis',
     version: EXTENSION_SPEC_VERSION,
     exports: {
       VegaModel: VegaModel,

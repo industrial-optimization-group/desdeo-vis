@@ -1,5 +1,5 @@
 {
-  "name": "jupyter-widget-example",
+  "name": "desdeo-vis",
   "version": "0.1.0",
   "description": "A Custom Jupyter Widget Library",
   "keywords": [
@@ -8,9 +8,9 @@
     "jupyterlab-extension",
     "widgets"
   ],
-  "homepage": "https://github.com/jupyter/jupyter-widget-example",
+  "homepage": "https://github.com/industrial-optimization-group/desdeo-vis",
   "bugs": {
-    "url": "https://github.com/jupyter/jupyter-widget-example/issues"
+    "url": "https://github.com/industrial-optimization-group/desdeo-vis/issues"
   },
   "license": "BSD-3-Clause",
   "author": "",
@@ -18,7 +18,7 @@
   "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyter/jupyter-widget-example"
+    "url": "https://github.com/industrial-optimization-group/desdeo-vis"
   },
   "scripts": {
     "build": "npm run build:nbextension",

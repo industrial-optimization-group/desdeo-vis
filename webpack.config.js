@@ -64,7 +64,7 @@ module.exports = [
     output: {
         filename: 'embed-bundle.js',
         path: __dirname + '/docs/source/_static',
-        library: "jupyter-widget-example",
+        library: "desdeo-vis",
         libraryTarget: 'amd'
     },
     module: {
