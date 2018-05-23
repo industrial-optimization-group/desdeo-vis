@@ -61,6 +61,10 @@ export default class SliderOverlay extends Vue {
 </script>
 
 <style lang="scss" module>
+/*
+For a full exploration of styling input[range] see:
+https://css-tricks.com/sliding-nightmare-understanding-range-input/
+*/
 $track-w: 200px;
 $track-h: 4px;
 $thumb-h: 16px;
