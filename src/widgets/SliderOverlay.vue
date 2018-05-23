@@ -81,8 +81,7 @@ $thumb-w: 2px;
   border: none;
   width: $track-w;
   height: $track-h;
-  background: #ccc;
-  opacity: 0;
+  background: rgba(0, 0, 0, 0.0);
 }
 
 @mixin thumb() {
