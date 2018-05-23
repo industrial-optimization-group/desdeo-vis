@@ -80,17 +80,6 @@ export default class NimbusPref extends Vue {
 
     //this.$watch('sliderValues', this.valuesChange);
   }
-
-  get sliderValues(): number[] {
-    return this.$refs.sliders.map((slider) => slider['value'] as number);
-  }
-
-  valuesChange(newValues: (string | number)[], _oldValues: (string | number)[]) {
-    for (let [idx, val] of newValues.entries()) {
-      this.preferences[idx].pref = numToPref(parseFloat(val as string), this.confs[idx]);
-    }
-    console.log('valuesChange', this.preferences);
-  }
 }
 </script>
 
