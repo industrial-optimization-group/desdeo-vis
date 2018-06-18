@@ -1,3 +1,4 @@
+pip install wheel
 pip install .
 jupyter nbextension enable desdeo_vis
 jupyter nbextension enable python-markdown/main
