@@ -1,3 +1,5 @@
 python setup.py install
 jupyter nbextension enable --py desdeo_vis
 jupyter nbextension enable python-markdown/main
+
+jupyter trust notebooks/*.ipynb
