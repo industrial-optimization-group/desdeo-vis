@@ -20,3 +20,6 @@ target/
 
 # Packed lab extensions
 labextension
+
+# Javascript source bundle for docs
+/docs/source/_static/
