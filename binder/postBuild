@@ -1,5 +1,6 @@
-python setup.py install
-jupyter nbextension enable --py desdeo_vis
+pip install .
+jupyter nbextension enable desdeo_vis
 jupyter nbextension enable python-markdown/main
+jupyter nbextension enable --py widgetsnbextension
 
 jupyter trust notebooks/*.ipynb
