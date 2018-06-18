@@ -166,3 +166,30 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+# nbsphinx
+try:
+    from subprocess import check_output
+    release = check_output(['git', 'describe', '--tags', '--always'])
+    release = release.decode().strip()
+except Exception:
+    release = '<unknown>'
+
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base=None) %}
+
+.. only:: html
+
+    .. role:: raw-html(raw)
+        :format: html
+
+    .. nbinfo::
+        Run this example in your browser
+
+        | This page was generated from `{{ docname }}`__.
+        | Interactive online version: :raw-html:`<a href="https://mybinder.org/v2/gh/industrial-optimization-group/desdeo-vis/{{ env.config.release }}?filepath=notebooks%2F{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>` (without output) :raw-html:`<a href="https://mybinder.org/v2/gh/industrial-optimization-group/desdeo-vis/{{ env.config.release }}?filepath=output-notebooks%2F{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>` (with output)
+
+    __ https://github.com/industrial-optimization-group/desdeo-vis/blob/
+        {{ env.config.release }}/output-notebooks/{{ docname }}
+
+"""
