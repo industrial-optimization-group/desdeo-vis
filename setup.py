@@ -91,7 +91,7 @@ setup_args = dict(
     install_requires=[
         'ipywidgets>=7.0.0',
         'widgetsnbextension',
-        'desdeo',
+        'desdeo>=0.1.3',
         'matplotlib',
         'altair',
         'vega',
