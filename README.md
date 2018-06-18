@@ -24,3 +24,13 @@ Or, if you use jupyterlab:
 pip install https://github.com/industrial-optimization-group/desdeo_vis.git#egg=desdeo_vis
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 ```
+
+## Development ##
+
+### Adding/modifying a notebook ###
+
+Each notebook has two versions, one in the `notebooks` directory and one in the
+`output-notebooks` directory. The version in the prior directory should be
+scrubbed of all output and is the canonical copy. Currently they have have to
+be kept in sync manually, e.g. by regenerating the output notebook from the
+canonical version.
