@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['pref-input']">
     <select class="btn-xs select-xs" :value="pref.kind" @input="kindChange">
-      <option v-for="kind of PREF_KINDS" :value="kind">{{ kind }}</option>
+      <option v-for="dispKind, idx of dispKinds" :value="PREF_KINDS[idx]">{{ dispKind }}</option>
     </select>
     <input class="btn-xs" :disabled="!hasValue" :value="value" @change="valueChange" />
   </div>
@@ -18,11 +18,12 @@ import {
 } from "vue-property-decorator"
 
 import {
+  MAX_PREF_KINDS,
   PREF_KINDS,
   DimPref,
   SliderConf,
   numToPref,
-  prefToKnownNum,
+  prefToDispNum,
   kindToPref,
 } from './utils';
 
@@ -59,7 +60,15 @@ export default class PrefInput extends Vue {
   }
 
   get value(): number | null {
-    return prefToKnownNum(this.pref);
+    return prefToDispNum(this.pref, this.conf);
+  }
+
+  get dispKinds(): string[] {
+    if (this.conf.inverted) {
+      return MAX_PREF_KINDS;
+    } else {
+      return PREF_KINDS;
+    }
   }
 }
 </script>

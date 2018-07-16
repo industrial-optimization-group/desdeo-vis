@@ -1,6 +1,8 @@
 import {
-  DOMWidgetModel, DOMWidgetView, ISerializers
+  DOMWidgetModel, DOMWidgetView, ISerializers, WidgetModel
 } from '@jupyter-widgets/base';
+
+import * as Backbone from 'backbone';
 
 import {
   EXTENSION_SPEC_VERSION
@@ -27,10 +29,10 @@ class VegaModel extends DOMWidgetModel {
     }
 
   static model_name = 'VegaModel';
-  static model_module = 'desdeo-vis';
+  static model_module = 'desdeo_vis';
   static model_module_version = EXTENSION_SPEC_VERSION;
   static view_name = 'VegaView';  // Set to null if no view
-  static view_module = 'desdeo-vis';   // Set to null if no view
+  static view_module = 'desdeo_vis';   // Set to null if no view
   static view_module_version = EXTENSION_SPEC_VERSION;
 }
 
@@ -39,6 +41,16 @@ export
 class VegaView extends DOMWidgetView {
   spec: any;
   view: any;
+
+  constructor(options?: Backbone.ViewOptions<WidgetModel> & {options?: any}) {
+    super(options);
+    this.model.on('change:spec', () => {
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      this.render();
+    });
+  }
 
   render() {
     this.spec = this.model.get('spec');

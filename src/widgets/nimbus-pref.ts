@@ -1,6 +1,8 @@
 import {
-  DOMWidgetModel, DOMWidgetView, ISerializers
+  DOMWidgetModel, DOMWidgetView, ISerializers, WidgetModel
 } from '@jupyter-widgets/base';
+
+import * as Backbone from 'backbone';
 
 import { VegaModel, VegaView } from './vega';
 
@@ -28,6 +30,14 @@ class NimbusPrefView extends VegaView {
     let fieldNames = root.context.data.fields.values.value;
     let values = root.context.data.main.values.value[0];
     let idx = 0;
+    let maximized = this.model.get('maximized');
+    let maxAsMin = this.model.get('cur_max_as_min');
+    let initPreferences;
+    if (this.model.get('prefs').length) {
+      initPreferences = this.model.get('prefs');
+    } else {
+      initPreferences = null;
+    }
     for (let axis of root.items) {
       if (axis.role !== 'axis') {
         continue;
@@ -40,12 +50,14 @@ class NimbusPrefView extends VegaView {
       let domain = scales[fieldNames[idx].data].value.domain();
       let value = values[fieldNames[idx].data];
       
+      let inverted = !maxAsMin && maximized[idx];
+
       console.log(
         'SliderConf',
-        x, y, height, domain[0], domain[1], value
+        x, y, height, domain[0], domain[1], inverted, value
       );
       confs.push(new SliderConf(
-        x, y, height, domain[0], domain[1], value
+        x, y, height, domain[0], domain[1], inverted, value
       ));
       idx++;
     }
@@ -53,7 +65,10 @@ class NimbusPrefView extends VegaView {
       propsData: {
         confs,
         vegaView: this.view,
-        vegaEl: this.vegaEl
+        vegaEl: this.vegaEl,
+        maximized,
+        maxAsMin,
+        initPreferences,
       }
     }).$mount();
     this.component.$watch(
@@ -67,6 +82,11 @@ class NimbusPrefView extends VegaView {
         immediate: true,
       }
     );
+    this.component.$watch(
+      'curMaxAsMin',
+      (newMaxAsMin, oldMaxAsMin) =>
+        this.onMaxAsMinChange(newMaxAsMin, oldMaxAsMin)
+    );
     this.vegaEl.style.position = 'relative';
     this.el.appendChild(this.component.$el);
   }
@@ -74,6 +94,11 @@ class NimbusPrefView extends VegaView {
   onPrefsChange(newPrefProb, oldPrefProb) {
     this.model.set('prefs', newPrefProb[0]);
     this.model.set('prob', newPrefProb[1]);
+    this.touch();
+  }
+
+  onMaxAsMinChange(newMaxAsMin, oldMaxAsMin) {
+    this.model.set('cur_max_as_min', newMaxAsMin);
     this.touch();
   }
 

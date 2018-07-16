@@ -46,13 +46,13 @@ export default examplePlugin;
  */
 function activateWidgetExtension(app: Application<Widget>, registry: IJupyterWidgetRegistry): void {
   registry.registerWidget({
-    name: 'desdeo-vis',
+    name: 'desdeo_vis',
     version: EXTENSION_SPEC_VERSION,
     exports: {
       VegaModel,
       VegaView,
       NimbusPrefModel,
-      NimbusPrefView
+      NimbusPrefView,
     }
   });
 }

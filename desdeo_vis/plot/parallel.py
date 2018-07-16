@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from matplotlib.ticker import MaxNLocator
+from copy import deepcopy
 
 
 def ticks(vmin, vmax):
@@ -22,13 +23,20 @@ def vega3_parplot_df_spec(
     # Based on https://vega.github.io/vega/examples/parallel-coordinates/
     from altair.vega.data import to_values
 
+    def min_max(row):
+        if row['ideal'] < row['nadir']:
+            return row['ideal'], row['nadir']
+        else:
+            return row['nadir'], row['ideal']
+
     def scale_of_row(row):
+        mn, mx = min_max(row)
         return {
             "name": row['name'],
             "type": "linear",
             "range": "height",
             "zero": False,
-            "domain": [row['ideal'], row['nadir']],
+            "domain": [mn, mx],
         }
 
     def axis_of_row(row):
@@ -44,11 +52,12 @@ def vega3_parplot_df_spec(
             }
         }
         if custom_axis_values:
-            tick_vals = list(ticks(row['ideal'], row['nadir']))
+            mn, mx = min_max(row)
+            tick_vals = list(ticks(mn, mx))
             json['values'] = (
                 [row['ideal']]
                 + tick_vals
-                + [row['nadir']])
+                + [mx])
             json['format'] = ".5"
         return json
 
@@ -160,7 +169,13 @@ def vega3_parplot_df_spec(
 
 
 def vega3_parplot_spec(results, problem, *args, **kwargs):
-    return vega3_parplot_df_spec(*(prepare_dfs(results, problem) + args), **kwargs)
+    if 'max_as_min' in kwargs:
+        max_as_min = kwargs['max_as_min']
+        del kwargs['max_as_min']
+    else:
+        max_as_min = True
+    heading_df, values_df = prepare_dfs(results, problem, max_as_min=max_as_min)
+    return vega3_parplot_df_spec(heading_df, values_df, *args, **kwargs)
 
 
 def vega3_parplot(results, problem):
@@ -168,13 +183,29 @@ def vega3_parplot(results, problem):
     return vg.vega(vega3_parplot_spec(results, problem), validate=True)
 
 
-def prepare_dfs(results, problem):
+def prepare_dfs(results, problem, max_as_min=True):
     import pandas as pd
+    results = deepcopy(results)
+    ideal = problem.ideal.copy()
+    nadir = problem.nadir.copy()
+
+    def adjust(arr):
+        for max, (i, v) in zip(problem.maximized, enumerate(arr)):
+            if not max:
+                continue
+            arr[i] = -v
+
+    if not max_as_min:
+        for rec in results:
+            adjust(rec)
+        adjust(ideal)
+        adjust(nadir)
+
     return (
         pd.DataFrame({
             'name': problem.objectives,
-            'ideal': problem.ideal,
-            'nadir': problem.nadir
+            'ideal': ideal,
+            'nadir': nadir
         }),
         pd.DataFrame.from_records(
             results,

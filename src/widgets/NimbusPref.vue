@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['pref-container']">
     <div>
-      <div :class="$style['inputs']">
+      <div :class="[$style['annotation'], $style['inputs']]">
 	<PrefInput
 	  :style="{
 	    left: confs[idx].x + 'px',
@@ -10,6 +10,16 @@
 	  :pref.sync="pref.pref"
 	  :key="idx"
 	  v-for="(pref, idx) of preferences" />
+      </div>
+      <div :style="{opacity: maxAsMin ? 0 : 1}" :class="[$style['annotation'], $style['max-min']]">
+	<div
+	  :style="{
+	    left: confs[idx].x + 'px',
+	    }"
+	  v-for="(mx_mn, idx) of maximized">
+	  <i v-if="mx_mn" class="fa fa-angle-up"></i>
+	  <i v-else class="fa fa-angle-down"></i>
+	</div>
       </div>
       <div :class="$style['vega-overlay']">
 	<div ref="vega"></div>
@@ -21,9 +31,10 @@
 	  v-for="(pref, idx) in preferences" />
       </div>
     </div>
-    <div v-if="problem" class="alert alert-warning">
+    <div v-if="problem" class="alert alert-warning" :class="$style['warning']">
       Current preference is invalid because {{ problem }}.
     </div>
+    <NimbusPrefSettings :class="$style['settings']" :origMaxAsMin="maxAsMin" ref="settings"></NimbusPrefSettings>
   </div>
 </template>
 
@@ -38,17 +49,20 @@ import * as vega from 'vega';
 import { SliderConf, DimPref, PrefEq, numToPref } from './utils';
 import SliderOverlay from './SliderOverlay.vue';
 import PrefInput from './PrefInput.vue';
+import NimbusPrefSettings from './NimbusPrefSettings.vue';
 
 @Component({
   components: {
     SliderOverlay,
     PrefInput,
+    NimbusPrefSettings,
   }
 })
 export default class NimbusPref extends Vue {
   $refs: {
     vega: Element,
     sliders: SliderOverlay[],
+    settings: NimbusPrefSettings,
   }
 
   @Prop()
@@ -60,19 +74,34 @@ export default class NimbusPref extends Vue {
   @Prop()
   vegaEl: Element;
 
+  @Prop()
+  maximized: boolean[];
+
+  @Prop()
+  maxAsMin: boolean;
+
+  @Prop({ default: null, type: Array })
+  initPreferences: DimPref[] | null;
+
   preferences: { pref: DimPref }[] = this.initialPreferences();
 
   initialPreferences(): { pref: DimPref }[] {
-    return Array.from(this.confs.map((_conf) => {
-      return {
-	pref: { 'kind': '=' } as PrefEq
-      };
-    }));
+    if (this.initPreferences) {
+      return Array.from(this.initPreferences.map((pref) => {
+	return {
+	  pref
+	};
+      }));
+    } else {
+      return Array.from(this.confs.map((_conf) => {
+	return {
+	  pref: { 'kind': '=' } as PrefEq
+	};
+      }));
+    }
   }
 
   mounted() {
-    console.log('this.$style', (this as any).$style)
-    console.log('this.confs', this.confs);
     this.vegaView.initialize(this.$refs.vega)
                  .hover()
                  .run();
@@ -111,13 +140,27 @@ export default class NimbusPref extends Vue {
       return pref.pref;
     });
   }
+
+  get curMaxAsMin(): boolean {
+    return this.$refs.settings.curMaxAsMin;
+  }
 }
 </script>
 
 <style lang="scss" module>
 .inputs {
+  height: 32px;
+}
+
+.max-min {
+  height: 16px;
+  font-size: 24px;
+  margin-top: -8px;
+  margin-bottom: 4px;
+}
+
+.annotation {
   position: relative;
-  height: 40px;
   > * {
     position: absolute;
     transform: translateX(-50%);
@@ -128,9 +171,23 @@ export default class NimbusPref extends Vue {
 .pref-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-left: 20px;
 }
 
 .vega-overlay {
   position: relative;
+}
+
+.warning {
+  max-width: 320px;
+  margin-left: 20px;
+}
+
+.settings {
+  position: relative;
+  margin-left: 20px;
+  white-space: nowrap;
+  align-self: flex-start;
 }
 </style>
