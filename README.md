@@ -27,6 +27,16 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 ## Development ##
 
+### Compilation ###
+
+Run:
+
+```bash
+npm run watch
+```
+
+You will need to refresh your browser, and possibly reload the Jupyter kernel to see some changes.
+
 ### Adding/modifying a notebook ###
 
 Each notebook has two versions, one in the `notebooks` directory and one in the
