@@ -142,7 +142,7 @@ export default class NimbusPref extends Vue {
   }
 
   get curMaxAsMin(): boolean {
-    return this.$refs.settings.curMaxAsMin;
+    return this.$refs.settings['curMaxAsMin'];
   }
 }
 </script>
