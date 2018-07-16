@@ -4,7 +4,7 @@ _settings = {
 
 
 def conf(**kwargs):
-    for k, v in kwargs:
+    for k, v in kwargs.items():
         _settings[k] = v
 
 
