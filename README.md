@@ -40,4 +40,4 @@ canonical version.
 
 3. Push -- including the tags with `git push && git push --tags`
 
-4. Upload to PyPI with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
+4. Upload to PyPI with `rm -rf build/ && python setup.py sdist bdist_wheel` and `twine upload dist/*`
