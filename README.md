@@ -1,29 +1,16 @@
 # desdeo-vis
 
 Visualisations and Jupyter Notebook enabled preference selection widgets for
-the [DESDEO interactive multiobjective optimization library](https://github.com/industrial-optimization-group/pyDESDEO).
+the [DESDEO interactive multiobjective optimization library](https://github.com/industrial-optimization-group/DESDEO).
 
 Currently features:
  * Parallel coordinate plots based on [Vega v3](https://vega.github.io/).
  * Preference selection for NIMBUS (first stage only).
 
-## Installation
+## Installation / Usage
 
-A typical installation requires the following commands to be run:
-
-```bash
-pip install https://github.com/industrial-optimization-group/desdeo_vis.git#egg=desdeo_vis
-jupyter nbextension enable --py [--sys-prefix|--user|--system] desdeo_vis
-```
-
-XXX: The below is untested/assumed not to work.
-
-Or, if you use jupyterlab:
-
-```bash
-pip install https://github.com/industrial-optimization-group/desdeo_vis.git#egg=desdeo_vis
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
-```
+Typically you should install this at [the same time as DESDEO, by following the
+instructions there](https://github.com/industrial-optimization-group/DESDEO).
 
 ## Development ##
 
