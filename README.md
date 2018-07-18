@@ -34,10 +34,15 @@ canonical version.
 
 ### Release process ###
 
-1. Make a release commit in which the version is incremented in `_version.py` and `package.json` and an entry is added to HISTORY.md
+1. Update the version number in `desdeo_vis/_version.py` and `package.json`,
+   and run `npm install` to update it in `package-lock.json` too.
 
-2. Make a git tag of this commit with `git tag v$VERSION`
+2. Add an entry to HISTORY.md.
 
-3. Push -- including the tags with `git push && git push --tags`
+2. Make a release commit.
 
-4. Upload to PyPI with `rm -rf build/ && python setup.py sdist bdist_wheel` and `twine upload dist/*`
+3. Make a git tag of this commit with `git tag v$VERSION`
+
+4. Push -- including the tags with `git push && git push --tags`
+
+5. Upload to PyPI with `rm -rf build/ && python setup.py sdist bdist_wheel` and `twine upload dist/*`
