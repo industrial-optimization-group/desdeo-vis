@@ -40,9 +40,6 @@ package_data_spec = {
     ]
 }
 
-print('path')
-print(nb_path)
-print(lab_path)
 data_files_spec = [
     ('share/jupyter/nbextensions/desdeo_vis',
         nb_path, '*.js*'),
