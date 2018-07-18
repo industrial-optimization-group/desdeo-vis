@@ -31,3 +31,13 @@ Each notebook has two versions, one in the `notebooks` directory and one in the
 scrubbed of all output and is the canonical copy. Currently they have have to
 be kept in sync manually, e.g. by regenerating the output notebook from the
 canonical version.
+
+### Release process ###
+
+1. Make a release commit in which the version is incremented in `_version.py` and `package.json` and an entry is added to HISTORY.md
+
+2. Make a git tag of this commit with `git tag v$VERSION`
+
+3. Push -- including the tags with `git push && git push --tags`
+
+4. Upload to PyPI with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
