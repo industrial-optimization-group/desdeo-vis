@@ -31,17 +31,19 @@
 	  v-for="(pref, idx) in preferences" />
       </div>
     </div>
-    <div v-if="problem" class="alert alert-warning" :class="$style['warning']">
-      Current preference is invalid because {{ problem }}.
-    </div>
-    <div :class="$style['more-buttons']">
-      <a class="btn btn-default"
-	 target="_blank"
-	 href="https://desdeo.readthedocs.io/en/latest/background/classification-in-nimbus.html">
-	<i class="fa-question-circle fa"></i>
-	<span class="toolbar-btn-label">Help</span>
-      </a>
-      <NimbusPrefSettings :origMaxAsMin="maxAsMin" ref="settings"></NimbusPrefSettings>
+    <div :class="$style['side-panel']">
+      <div :class="$style['more-buttons']">
+	<a class="btn btn-default"
+	   target="_blank"
+	   href="https://desdeo.readthedocs.io/en/latest/background/classification-in-nimbus.html">
+	  <i class="fa-question-circle fa"></i>
+	  <span class="toolbar-btn-label">Help</span>
+	</a>
+	<NimbusPrefSettings :origMaxAsMin="maxAsMin" ref="settings"></NimbusPrefSettings>
+      </div>
+      <div v-if="problem" class="alert alert-warning" :class="$style['warning']">
+	Current preference is invalid because {{ problem }}.
+      </div>
     </div>
   </div>
 </template>
@@ -187,19 +189,28 @@ export default class NimbusPref extends Vue {
   position: relative;
 }
 
-.warning {
-  max-width: 320px;
-  margin-left: 20px;
+.side-panel {
+  align-self: stretch;
+  width: 320px;
 }
 
 .more-buttons {
   position: relative;
   margin-left: 20px;
   white-space: nowrap;
-  align-self: flex-start;
   > * {
-    margin-bottom: 10px;
     float: right;
   }
+
+  > *:last-child {
+    margin-right: 10px;
+  }
+}
+
+.warning {
+  max-width: 320px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>
