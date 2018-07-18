@@ -52,10 +52,6 @@ class NimbusPrefView extends VegaView {
       
       let inverted = !maxAsMin && maximized[idx];
 
-      console.log(
-        'SliderConf',
-        x, y, height, domain[0], domain[1], inverted, value
-      );
       confs.push(new SliderConf(
         x, y, height, domain[0], domain[1], inverted, value
       ));

@@ -46,11 +46,6 @@ export default class PrefInput extends Vue {
     this.updatePref(numToPref(parseFloat(input.target.value), this.conf, false));
   }
 
-  @Watch('pref')
-  onPrefChange(pref) {
-    console.log('onPrefChange', pref);
-  }
-
   updatePref(pref: DimPref) {
     this.$emit('update:pref', pref);
   }

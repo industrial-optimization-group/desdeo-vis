@@ -72,7 +72,6 @@ export function numToPref(val: number, conf: SliderConf, snap = true): DimPref {
   }
   let { ideal, nadir, initMinValue } = conf;
   let near = (ideal - nadir) / 100;
-  console.log('numToCls', near, val, ideal, nadir, initMinValue);
   if (minVal < ideal || (snap && Math.abs(minVal - ideal) <= near)) {
     return { kind: '<' };
   } else if (minVal > nadir || (snap && Math.abs(minVal - nadir) <= near)) {
@@ -162,7 +161,6 @@ export function prefToNum(pref: DimPref, conf: SliderConf): number {
 // XXX: Broken do not use (yet)
 export function* zip(firstArr: any[], ...arrs: any[][]) {
   for (let key of firstArr.keys()) {
-    console.log('zip', key);
     yield [firstArr[key]].concat(arrs.map((arr) => arr[key]));
   }
 }
