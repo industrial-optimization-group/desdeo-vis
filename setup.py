@@ -78,12 +78,12 @@ setup_args = dict(
     platforms="Linux, Mac OS X, Windows",
     keywords=['Jupyter', 'Widgets', 'IPython'],
     classifiers=[
+        "Development Status :: 2 - Pre-Alpha",
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Framework :: Jupyter',
     ],
@@ -112,6 +112,7 @@ setup_args = dict(
             'pytest_check_links',
             'pypandoc',
         ],
+        "dev": ["black==18.4a4", "twine", "flake8", "isort"],
     },
     entry_points={},
 )
