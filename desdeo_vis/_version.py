@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-version_info = (0, 1, 0, 'dev')
+version_info = (0, 1, 1)
 __version__ = ".".join(map(str, version_info))
 
 # The version of the attribute spec that this package
