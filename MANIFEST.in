@@ -5,6 +5,7 @@ include setupbase.py
 include package.json
 include webpack.config.js
 include desdeo_vis/labextension/*.tgz
+include notebooks
 
 # Javascript files
 graft desdeo_vis/nbextension
