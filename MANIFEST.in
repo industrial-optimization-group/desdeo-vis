@@ -6,7 +6,8 @@ include setupbase.py
 include package.json
 include webpack.config.js
 include desdeo_vis/labextension/*.tgz
-include notebooks/*.ipynb
+include desdeo_notebooks/*.ipynb
+include desdeo_notebooks/output/*.ipynb
 
 # Javascript files
 graft desdeo_vis/nbextension
