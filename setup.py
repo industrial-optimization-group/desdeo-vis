@@ -112,6 +112,12 @@ setup_args = dict(
         "dev": ["black==18.4a4", "twine", "flake8", "isort"],
     },
     entry_points={},
+    package_data={
+        'desdeo_notebooks': [
+            '*.ipynb',
+            'output/*.ipynb',
+        ]
+    }
 )
 
 if __name__ == '__main__':
