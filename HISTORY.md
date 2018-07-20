@@ -1,3 +1,8 @@
+## 0.1.3 (2018-07-20) ##
+
+* Add LICENSE
+* Fix up NimbusPref side panel styling
+
 ## 0.1.2 (2018-07-18) ##
 
 * Added notebooks to release
