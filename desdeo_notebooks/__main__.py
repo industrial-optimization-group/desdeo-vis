@@ -5,22 +5,36 @@ from shutil import copyfileobj
 
 from pkg_resources import resource_stream, resource_listdir, resource_isdir
 
-if len(sys.argv) >= 2:
-    dest_dir = sys.argv[1]
-else:
+
+def main():
+    output = False
     dest_dir = '.'
 
-if not isdir(dest_dir):
-    mkdir(dest_dir)
+    for arg in sys.argv[1:]:
+        if arg == '-o' or arg == '--output':
+            output = True
+        else:
+            dest_dir = arg
 
-desdeo_notebooks = 'desdeo_notebooks'
+    if not isdir(dest_dir):
+        mkdir(dest_dir)
 
-for nbf in resource_listdir(desdeo_notebooks, 'notebooks'):
-    if not nbf.endswith('.ipynb'):
-        continue
-    path = 'notebooks/' + nbf
-    if resource_isdir(desdeo_notebooks, path):
-        continue
-    copyfileobj(
-        resource_stream(desdeo_notebooks, path),
-        open(pjoin(dest_dir, nbf), 'wb'))
+    desdeo_notebooks = 'desdeo_notebooks'
+    if output:
+        nb_dir = "output/"
+    else:
+        nb_dir = ""
+
+    for nbf in resource_listdir(desdeo_notebooks, nb_dir):
+        if not nbf.endswith('.ipynb'):
+            continue
+        path = nb_dir + nbf
+        if resource_isdir(desdeo_notebooks, path):
+            continue
+        copyfileobj(
+            resource_stream(desdeo_notebooks, path),
+            open(pjoin(dest_dir, nbf), 'wb'))
+
+
+if __name__ == '__main__':
+    main()
