@@ -1,3 +1,7 @@
+## 0.1.5 (2018-07-20) ##
+
+ * Fix notebook packaging once and for all!
+
 ## 0.1.4 (2018-07-20) ##
 
  * Update NIMBUS river pollution notebook
