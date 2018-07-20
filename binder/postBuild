@@ -2,4 +2,5 @@ pip install wheel
 pip install .
 jupyter nbextension enable --py widgetsnbextension
 
-jupyter trust notebooks/*.ipynb
+jupyter trust desdeo_notebooks/*.ipynb
+jupyter trust desdeo_notebooks/output/*.ipynb
