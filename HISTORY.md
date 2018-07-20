@@ -1,3 +1,8 @@
+## 0.1.4 (2018-07-20) ##
+
+ * Update NIMBUS river pollution notebook
+ * Move notebooks to package so they get installed properly
+
 ## 0.1.3 (2018-07-20) ##
 
 * Add LICENSE
