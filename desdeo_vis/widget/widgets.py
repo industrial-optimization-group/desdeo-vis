@@ -8,7 +8,6 @@ from desdeo_vis._version import EXTENSION_SPEC_VERSION
 from desdeo_vis.conf import get_conf
 
 module_name = "desdeo_vis"
-global_widget = None
 
 
 class InvalidNimbusPreferencesException(DESDEOException):
@@ -26,13 +25,11 @@ class VegaWidget(DOMWidget):
     spec = Dict().tag(sync=True)
 
 
-class NimbusPrefWidget(VegaWidget):
-    _model_name = Unicode('NimbusPrefModel').tag(sync=True)
-    _view_name = Unicode('NimbusPrefView').tag(sync=True)
+class ParplotWidget(VegaWidget):
+    _model_name = Unicode('ParplotModel').tag(sync=True)
+    _view_name = Unicode('ParplotView').tag(sync=True)
 
     maximized = List().tag(sync=True)
-    prefs = List(Dict()).tag(sync=True)
-    prob = Unicode(allow_none=True).tag(sync=True)
     orig_max_as_min = Bool().tag(sync=True)
     cur_max_as_min = Bool().tag(sync=True)
 
@@ -62,6 +59,17 @@ class NimbusPrefWidget(VegaWidget):
             self.results, self.problem,
             max_as_min=self.cur_max_as_min,
             dim_tooltips=True, dim_symbols=True)
+
+
+class NimbusPrefWidget(ParplotWidget):
+    _model_name = Unicode('NimbusPrefModel').tag(sync=True)
+    _view_name = Unicode('NimbusPrefView').tag(sync=True)
+
+    prefs = List(Dict()).tag(sync=True)
+    prob = Unicode(allow_none=True).tag(sync=True)
+
+    def __init__(self, results, problem, max_as_min=None, **kwargs):
+        super().__init__(results, problem, max_as_min=max_as_min, **kwargs)
 
     def nimbus_clf(self, meth):
         from desdeo.preference import NIMBUSClassification

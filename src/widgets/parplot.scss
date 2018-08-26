@@ -1,0 +1,44 @@
+.pref-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.vega-overlay {
+  position: relative;
+}
+
+.side-panel {
+  align-self: stretch;
+  width: 320px;
+}
+
+.more-buttons {
+  position: relative;
+  margin-left: 20px;
+  white-space: nowrap;
+  > * {
+    float: right;
+  }
+
+  > *:last-child {
+    margin-right: 10px;
+  }
+}
+
+.max-min {
+  height: 16px;
+  font-size: 24px;
+  margin-top: -8px;
+  margin-bottom: 4px;
+}
+
+.annotation {
+  position: relative;
+  > * {
+    position: absolute;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+}

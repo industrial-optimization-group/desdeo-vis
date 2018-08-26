@@ -11,16 +11,11 @@
 	  :key="idx"
 	  v-for="(pref, idx) of preferences" />
       </div>
-      <div :style="{opacity: maxAsMin ? 0 : 1}" :class="[$style['annotation'], $style['max-min']]">
-	<div
-	  :style="{
-	    left: confs[idx].x + 'px',
-	    }"
-	  v-for="(mx_mn, idx) of maximized">
-	  <i v-if="mx_mn" class="fa fa-angle-up"></i>
-	  <i v-else class="fa fa-angle-down"></i>
-	</div>
-      </div>
+      <MaxAsMinPanel
+	:confs="confs"
+	:maximized="maximized"
+	:maxAsMin="maxAsMin"
+	:class="[$style['annotation'], $style['max-min']]" />
       <div :class="$style['vega-overlay']">
 	<div ref="vega"></div>
 	<SliderOverlay
@@ -49,46 +44,32 @@
 </template>
 
 <script lang="ts">
-import {
-  Component,
-  Prop,
-  Vue
-} from "vue-property-decorator"
+import Vue, { VueConstructor } from 'vue';
+import { Component, Prop } from "vue-property-decorator"
+import { mixins } from 'vue-class-component'
 
 import * as vega from 'vega';
 import { SliderConf, DimPref, PrefEq, numToPref } from './utils';
 import SliderOverlay from './SliderOverlay.vue';
 import PrefInput from './PrefInput.vue';
 import NimbusPrefSettings from './NimbusPrefSettings.vue';
+import MaxAsMinPanel from './MaxAsMinPanel.vue';
+import VegaMixin from './VegaMixin';
 
 @Component({
   components: {
     SliderOverlay,
     PrefInput,
     NimbusPrefSettings,
+    MaxAsMinPanel,
   }
 })
-export default class NimbusPref extends Vue {
+export default class NimbusPref extends mixins(VegaMixin) {
   $refs: {
     vega: Element,
-    sliders: SliderOverlay[],
     settings: NimbusPrefSettings,
+    sliders: SliderOverlay[],
   }
-
-  @Prop()
-  confs: SliderConf[];
-
-  @Prop()
-  vegaView: vega.View;
-
-  @Prop()
-  vegaEl: Element;
-
-  @Prop()
-  maximized: boolean[];
-
-  @Prop()
-  maxAsMin: boolean;
 
   @Prop({ default: null, type: Array })
   initPreferences: DimPref[] | null;
@@ -112,17 +93,7 @@ export default class NimbusPref extends Vue {
   }
 
   mounted() {
-    this.vegaView.initialize(this.$refs.vega)
-                 .hover()
-                 .run();
-    /*
-      Perhaps this would be better than reinitialising, but this.$refs.vega is
-      undefined.
-
-      this.$refs.vega.appendChild(this.vegaEl);
-    */
-
-    //this.$watch('sliderValues', this.valuesChange);
+    this.vegaInit();
   }
 
   get problem(): string | null {
@@ -150,61 +121,14 @@ export default class NimbusPref extends Vue {
       return pref.pref;
     });
   }
-
-  get curMaxAsMin(): boolean {
-    return this.$refs.settings['curMaxAsMin'];
-  }
 }
 </script>
 
 <style lang="scss" module>
+@import "./parplot.scss";
+
 .inputs {
   height: 32px;
-}
-
-.max-min {
-  height: 16px;
-  font-size: 24px;
-  margin-top: -8px;
-  margin-bottom: 4px;
-}
-
-.annotation {
-  position: relative;
-  > * {
-    position: absolute;
-    transform: translateX(-50%);
-    white-space: nowrap;
-  }
-}
-
-.pref-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 20px;
-}
-
-.vega-overlay {
-  position: relative;
-}
-
-.side-panel {
-  align-self: stretch;
-  width: 320px;
-}
-
-.more-buttons {
-  position: relative;
-  margin-left: 20px;
-  white-space: nowrap;
-  > * {
-    float: right;
-  }
-
-  > *:last-child {
-    margin-right: 10px;
-  }
 }
 
 .warning {

@@ -18,6 +18,10 @@ import {
 } from './widgets/vega';
 
 import {
+  ParplotModel, ParplotView
+} from './widgets/parplot';
+
+import {
   NimbusPrefModel, NimbusPrefView
 } from './widgets/nimbus-pref';
 
@@ -51,6 +55,8 @@ function activateWidgetExtension(app: Application<Widget>, registry: IJupyterWid
     exports: {
       VegaModel,
       VegaView,
+      ParplotModel,
+      ParplotView,
       NimbusPrefModel,
       NimbusPrefView,
     }
