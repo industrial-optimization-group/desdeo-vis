@@ -32,6 +32,15 @@ should be scrubbed of all output and is the canonical copy. Currently they have
 have to be kept in sync manually, e.g. by regenerating the output notebook from
 the canonical version.
 
+### Known issues ###
+
+If you are developing using a virtualenv (recommended) you may have trouble
+widget Javascript from outside the virtualenv getting picked up, meaning you
+can't test your changes. This is a problem when you have installed desdeo-vis
+outside the virtualenv either system-wide or per-user. Currently, there's no
+clear way to isolate this Javascript, so the solution is to uninstall the other
+versions of desdeo-vis and make sure to only install it inside virtualenvs.
+
 ### Release process ###
 
 1. Update the version number in `desdeo_vis/_version.py` and `package.json`,
