@@ -26,11 +26,11 @@ You will need to refresh your browser, and possibly reload the Jupyter kernel to
 
 ### Adding/modifying a notebook ###
 
-Each notebook has two versions, one in the `notebooks` directory and one in the
-`output-notebooks` directory. The version in the prior directory should be
-scrubbed of all output and is the canonical copy. Currently they have have to
-be kept in sync manually, e.g. by regenerating the output notebook from the
-canonical version.
+Each notebook has two versions, one in the `desdeo_notebooks` directory and one
+in the `desdeo_notebooks/output` directory. The version in the prior directory
+should be scrubbed of all output and is the canonical copy. Currently they have
+have to be kept in sync manually, e.g. by regenerating the output notebook from
+the canonical version.
 
 ### Release process ###
 
