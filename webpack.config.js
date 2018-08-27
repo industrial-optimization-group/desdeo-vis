@@ -35,49 +35,46 @@ var rules = [
   },
 ];
 
-module.exports = [
-  {
-    // Notebook extension
-    entry: './index.ts',
-    output: {
-      filename: 'index.js',
-      path: __dirname + '/desdeo_vis/nbextension/static',
-      libraryTarget: 'amd'
-    },
-    module: {
-      rules: rules.slice(0)
-    },
-    devtool: 'source-map',
-    externals: ['@jupyter-widgets/base'],
-    resolve: {
-      // Add '.ts' and '.tsx' as resolvable extensions.
-      extensions: [".webpack.js", ".web.js", ".ts", ".js", ".vue"]
-    },
-    plugins: [
-      new VueLoaderPlugin()
-    ]
+let commonConfig = {
+  entry: './index.ts',
+  module: {
+    rules: rules.slice(0)
   },
+  devtool: 'source-map',
+  externals: ['@jupyter-widgets/base'],
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: [".webpack.js", ".web.js", ".ts", ".js", ".vue"],
+    alias: {
+      vega: "vega-lib"
+    }
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ]
+}
 
-  {
-    // embeddable bundle (e.g. for docs)
-    entry: './index.ts',
-    output: {
-        filename: 'embed-bundle.js',
-        path: __dirname + '/docs/source/_static',
-        library: "desdeo-vis",
+module.exports = [
+  // Notebook extension
+  Object.assign({}, commonConfig,
+    {
+      output: {
+        filename: 'index.js',
+        path: __dirname + '/desdeo_vis/nbextension/static',
         libraryTarget: 'amd'
-    },
-    module: {
-      rules: rules.slice(0)
-    },
-    devtool: 'source-map',
-    externals: ['@jupyter-widgets/base'],
-    resolve: {
-      // Add '.ts' and '.tsx' as resolvable extensions.
-      extensions: [".webpack.js", ".web.js", ".ts", ".js", ".vue"]
-    },
-    plugins: [
-      new VueLoaderPlugin()
-    ]
-  },
+      },
+    }
+  ),
+
+  // embeddable bundle (e.g. for docs)
+  Object.assign({}, commonConfig,
+    {
+      output: {
+          filename: 'embed-bundle.js',
+          path: __dirname + '/docs/source/_static',
+          library: "desdeo-vis",
+          libraryTarget: 'amd'
+      },
+    }
+  )
 ];

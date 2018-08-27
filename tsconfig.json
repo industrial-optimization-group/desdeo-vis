@@ -32,6 +32,12 @@
     "target": "ES5",
     "outDir": "./lib",
     "skipLibCheck": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "vega": [
+        "node_modules/vega-lib"
+      ]
+    }
   }
 }
