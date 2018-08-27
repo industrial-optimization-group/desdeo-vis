@@ -1,8 +1,11 @@
 build:
-  image: 3.0
+  image: latest
 
 python:
   version: 3.6
   pip_install: true
   extra_requirements:
     - docs
+
+conda:
+    file: docs/environment.yml

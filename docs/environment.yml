@@ -1,0 +1,6 @@
+name: desdeo-vis-docs
+channels:
+- defaults
+- conda-forge
+dependencies:
+- nodejs
