@@ -23,7 +23,7 @@ import {
   DimPref,
   SliderConf,
   numToPref,
-  prefToDispNum,
+  prefToNum,
   kindToPref,
 } from './utils';
 
@@ -55,7 +55,7 @@ export default class PrefInput extends Vue {
   }
 
   get value(): number | null {
-    return prefToDispNum(this.pref, this.conf);
+    return prefToNum(this.pref, this.conf);
   }
 
   get dispKinds(): string[] {
