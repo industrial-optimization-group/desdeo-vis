@@ -71,7 +71,7 @@ module.exports = [
     {
       output: {
           filename: 'embed-bundle.js',
-          path: __dirname + '/docs/source/_static',
+          path: __dirname + '/docs/_static',
           library: "desdeo-vis",
           libraryTarget: 'amd'
       },
