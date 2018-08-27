@@ -22,18 +22,7 @@ import {
   Component,
   Prop,
   Vue,
-  Watch,
-  Emit,
 } from "vue-property-decorator"
-
-import {
-  DOMWidgetModel
-} from '@jupyter-widgets/base';
-
-import * as vega from 'vega';
-import { SliderConf, DimPref, PrefEq, numToPref } from './utils';
-import SliderOverlay from './SliderOverlay.vue';
-import PrefInput from './PrefInput.vue';
 
 @Component({})
 export default class NimbusPrefSettings extends Vue {
