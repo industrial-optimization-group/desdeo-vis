@@ -12,7 +12,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
+import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
@@ -23,10 +23,18 @@ project = 'desdeo-vis'
 copyright = '2018, Frankie Robertson'
 author = 'Frankie Robertson'
 
-# The short X.Y version
-version = ''
-# The full version, including alpha/beta/rc tags
-release = ''
+# get version from nbdime:
+here = os.path.dirname(__file__)
+repo = os.path.join(here, '..')
+_version_py = os.path.join(repo, 'desdeo_vis', '_version.py')
+version_ns = {}
+with open(_version_py) as f:
+    exec(f.read(), version_ns)
+
+# The short X.Y version.
+version = '%i.%i' % version_ns['version_info'][:2]
+# The full version, including alpha/beta/rc tags.
+release = version_ns['__version__']
 
 
 # -- General configuration ---------------------------------------------------
