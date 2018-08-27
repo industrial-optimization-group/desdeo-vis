@@ -41,7 +41,7 @@
     "watch:nbextension": "webpack --watch"
   },
   "dependencies": {
-    "@jupyter-widgets/base": "^1.0.1",
+    "@jupyter-widgets/base": "^1.2.1",
     "css-loader": "^0.28.11",
     "postcss-loader": "^2.1.4",
     "vega-lib": "^4.2.0",
