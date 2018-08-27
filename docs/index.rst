@@ -7,3 +7,4 @@ desdeo-vis's documentation
    
    README <README.md>
    notebooks
+   api
