@@ -193,6 +193,6 @@ nbsphinx_prolog = r"""
         | Interactive online version: :raw-html:`<a href="https://mybinder.org/v2/gh/industrial-optimization-group/desdeo-vis/{{ env.config.release }}?filepath=desdeo_notebooks%2F{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>` (without output) :raw-html:`<a href="https://mybinder.org/v2/gh/industrial-optimization-group/desdeo-vis/{{ env.config.release }}?filepath=desdeo_notebooks%2Foutput%2F{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>` (with output)
 
     __ https://github.com/industrial-optimization-group/desdeo-vis/blob/
-        {{ env.config.release }}/output-notebooks/{{ docname }}
+        {{ env.config.release }}/desdeo_notebooks/output/{{ docname }}
 
 """
