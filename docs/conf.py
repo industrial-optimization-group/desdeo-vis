@@ -48,6 +48,8 @@ release = version_ns['__version__']
 # ones.
 extensions = [
     'nbsphinx',
+    "jupyter_sphinx.embed_widgets",
+    "nbsphinx_link",
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
@@ -204,3 +206,14 @@ nbsphinx_prolog = r"""
         {{ env.config.release }}/desdeo_notebooks/output/{{ docname }}
 
 """
+
+
+def setup(app):
+    app.setup_extension('jupyter_sphinx.embed_widgets')
+
+    def add_scripts(app):
+        for fname in ['helper.js', 'embed-bundle.js']:
+            if not os.path.exists(os.path.join(here, '_static', fname)):
+                app.warn('missing javascript file: %s' % fname)
+            app.add_javascript(fname)
+    app.connect('builder-inited', add_scripts)
