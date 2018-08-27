@@ -4,6 +4,8 @@
 from ipywidgets import DOMWidget
 from traitlets import Unicode, Dict, List, Bool, observe, default
 from desdeo.utils.exceptions import DESDEOException
+from desdeo.method.NIMBUS import NIMBUS
+from desdeo.preference import NIMBUSClassification
 from desdeo_vis._version import EXTENSION_SPEC_VERSION
 from desdeo_vis.conf import get_conf
 
@@ -26,6 +28,11 @@ class VegaWidget(DOMWidget):
 
 
 class ParplotWidget(VegaWidget):
+    """
+    A parallel plot widget to display solutions to a multi-objective
+    optimization problem.
+    """
+
     _model_name = Unicode('ParplotModel').tag(sync=True)
     _view_name = Unicode('ParplotView').tag(sync=True)
 
@@ -34,6 +41,18 @@ class ParplotWidget(VegaWidget):
     cur_max_as_min = Bool().tag(sync=True)
 
     def __init__(self, results, problem, max_as_min=None, **kwargs):
+        """
+        Parameters
+        ----------
+        results
+            The solutions to plot.
+
+        problem
+            The DESDEO problem with which the plot is made with respect to.
+
+        max_as_min
+            Whether to reformulate maximized functions as minimized functions.
+        """
         self.results = results
         self.problem = problem
         self.maximized = problem.maximized
@@ -62,6 +81,11 @@ class ParplotWidget(VegaWidget):
 
 
 class NimbusPrefWidget(ParplotWidget):
+    """
+    A NIMBUS preference selection widget. This allows for graphical selection
+    of preferences in the form NIMBUS requires.
+    """
+
     _model_name = Unicode('NimbusPrefModel').tag(sync=True)
     _view_name = Unicode('NimbusPrefView').tag(sync=True)
 
@@ -71,8 +95,12 @@ class NimbusPrefWidget(ParplotWidget):
     def __init__(self, results, problem, max_as_min=None, **kwargs):
         super().__init__(results, problem, max_as_min=max_as_min, **kwargs)
 
-    def nimbus_clf(self, meth):
-        from desdeo.preference import NIMBUSClassification
+    def nimbus_clf(self, meth: NIMBUS) -> NIMBUSClassification:
+        """
+        Get the NIMBUS preference currently selected with the widget as a
+        NIMBUSClassification. Raises a InvalidNimbusPreferencesException if an
+        invalid preference is chosen.
+        """
         if self.prob is not None:
             raise InvalidNimbusPreferencesException(
                 "Preference is invalid: " + self.prob)

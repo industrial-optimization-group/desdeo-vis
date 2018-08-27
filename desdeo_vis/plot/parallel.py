@@ -179,6 +179,18 @@ def vega3_parplot_spec(results, problem, *args, **kwargs):
 
 
 def vega3_parplot(results, problem):
+    """
+    Plot a parallel cordinate plot of solutions using Altair and Vega 3.
+
+    Parameters
+    ----------
+    results
+        The solutions to plot.
+
+    problem
+        The DESDEO problem with which the plot is made with respect to.
+    """
+
     import altair.vega.v3 as vg
     return vg.vega(vega3_parplot_spec(results, problem), validate=True)
 
