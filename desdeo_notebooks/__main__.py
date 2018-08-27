@@ -25,15 +25,21 @@ def main():
     else:
         nb_dir = ""
 
+    if output:
+        print("Now run:")
+
     for nbf in resource_listdir(desdeo_notebooks, nb_dir):
         if not nbf.endswith('.ipynb'):
             continue
         path = nb_dir + nbf
         if resource_isdir(desdeo_notebooks, path):
             continue
+        out_path = pjoin(dest_dir, nbf)
         copyfileobj(
             resource_stream(desdeo_notebooks, path),
-            open(pjoin(dest_dir, nbf), 'wb'))
+            open(out_path, 'wb'))
+        if output:
+            print("jupyter trust {}".format(out_path))
 
 
 if __name__ == '__main__':
