@@ -6,3 +6,4 @@ Example notebooks
    :caption: Contents:
    
    nimbus-river-pollution
+   nimbus-cylinder
