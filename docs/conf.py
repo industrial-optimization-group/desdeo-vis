@@ -211,9 +211,19 @@ nbsphinx_prolog = r"""
 def setup(app):
     app.setup_extension('jupyter_sphinx.embed_widgets')
 
-    def add_scripts(app):
+    def build_and_add_scripts(app):
+        # Build
+        print("[widgets] Running npm build")
+        from subprocess import check_output
+        cwd = os.getcwd()
+        os.chdir(os.path.join(os.path.dirname(__file__), ".."))
+        check_output(['npm', 'run', 'build'])
+        os.chdir(cwd)
+
+        # Add
+        print("[widgets] Adding widgets")
         for fname in ['embed-bundle.js']:
             if not os.path.exists(os.path.join(here, '_static', fname)):
                 app.warn('missing javascript file: %s' % fname)
             app.add_javascript(fname)
-    app.connect('builder-inited', add_scripts)
+    app.connect('builder-inited', build_and_add_scripts)
