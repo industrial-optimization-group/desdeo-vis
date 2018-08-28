@@ -229,6 +229,7 @@ def setup(app):
         from subprocess import check_output
         cwd = os.getcwd()
         os.chdir(os.path.join(os.path.dirname(__file__), ".."))
+        check_output(['npm', 'install'])
         check_output(['npm', 'run', 'build'])
         os.chdir(cwd)
 
