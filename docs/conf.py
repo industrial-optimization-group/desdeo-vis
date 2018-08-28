@@ -16,13 +16,13 @@ import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-autodoc_default_flags = [
-    "members",
-    "undoc-members",
-    # "private-members",
-    "special-members",
-    # "inherited-members",
-    "show-inheritance",
+autodoc_default_options = [
+    "members": None,
+    "undoc-members": None,
+    # "private-members": None,
+    "special-members": None,
+    # "inherited-members": None,
+    "show-inheritance": None,
 ]
 
 # -- Project information -----------------------------------------------------
