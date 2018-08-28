@@ -108,6 +108,7 @@ setup_args = dict(
             'nbsphinx-link',
             'pytest_check_links',
             'pypandoc',
+            "sphinx_autodoc_typehints",
         ],
         "dev": ["black==18.4a4", "twine", "flake8", "isort"],
     },
