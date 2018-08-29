@@ -8,3 +8,4 @@ API documentation
 
    desdeo_vis.plot
    desdeo_vis.widget
+   desdeo_vis.conf
