@@ -100,7 +100,7 @@ setup_args = dict(
             'nbval',
         ],
         'docs': [
-            'sphinx>=1.8.0b1',
+            'sphinx',
             'recommonmark',
             'sphinx_rtd_theme',
             'nbsphinx>=0.2.13',
