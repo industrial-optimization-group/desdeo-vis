@@ -3,7 +3,7 @@ Globally configure default settings for plotting and widgets.
 """
 
 _settings = {
-    'max_as_min': True
+    'max_as_min': False
 }
 
 
