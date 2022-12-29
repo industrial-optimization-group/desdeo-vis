@@ -42,11 +42,11 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1.2.1",
-    "css-loader": "^0.28.11",
-    "postcss-loader": "^2.1.4",
+    "css-loader": "^6.7.3",
+    "postcss-loader": "^7.0.2",
     "vega-lib": "^4.2.0",
     "vue": "^2.5.16",
-    "vue-loader": "^15.0.9",
+    "vue-loader": "^17.0.1",
     "vue-property-decorator": "^6.0.0",
     "vue-template-compiler": "^2.5.16"
   },
@@ -62,11 +62,11 @@
     "node-sass": "^4.9.0",
     "npm-run-all": "^4.1.1",
     "rimraf": "^2.6.2",
-    "sass-loader": "^7.0.1",
-    "source-map-loader": "^0.2.1",
-    "ts-loader": "^2.3.2",
+    "sass-loader": "^13.2.0",
+    "source-map-loader": "^4.0.1",
+    "ts-loader": "^9.4.2",
     "typescript": "^2.8.3",
-    "webpack": "^3.4.1"
+    "webpack": "^5.75.0"
   },
   "jupyterlab": {
     "extension": "lib/plugin"
